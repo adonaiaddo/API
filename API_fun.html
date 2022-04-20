@@ -1,22 +1,24 @@
-<!DOCTYPE html>
 <html>
     <head>
-        <title>API mbta</title>
+        <title>MBTA API</title>
+        
         <script type = "text/javascript">
             function callAPI() {
+                // make an http request
                 request = new XMLHttpRequest();
-                console.log("1 - request object created");
+//                 console.log("1 - request object created");
+                
+                // open JSON request file
+                request.open("GET", "https://api-v3.mbta.com/schedules?include=prediction&filter%5Bmin_time%5D=14%3A00&filter%5Bmax_time%5D=14%3A30&filter%5Bstop%5D=17094", true); 
+//                 console.log("2 - opened request file");
 
-                request.open("GET", "https://api-v3.mbta.com/schedules?include=prediction&filter%5Bmin_time%5D=14%3A00&filter%5Bmax_time%5D=14%3A30&filter%5Bstop%5D=17094", true);
-                console.log("2 - opened request file");
-
+                // ready state change event fired
                 request.onreadystatechange = function () {
-                    console.log("3 - readystatechange event fired.");
+//                     console.log("3 - readystatechange event fired.");
                     
                     if (request.readyState == 4 && request.status == 200) {
 
-                        // Step 5: wait for done + success
-                        console.log("5 - response received");
+//                         console.log("5 - response received");
                         result = request.responseText;
                         alert(result);
                         schedule = JSON.parse(result);
@@ -43,18 +45,22 @@
             }
         </script>
     </head>
+    
     <body onload = "callAPI()">
         <div>
-            <p><b>API I am using is MBTA</b><br>
+            <p><b>The API I am using is MBTA</b><br>
                 it return predicted schedules of MBTA buses <a href ="https://api-v3.mbta.com/schedules?include=prediction&filter%5Bmin_time%5D=14%3A00&filter%5Bmax_time%5D=14%3A30&filter%5Bstop%5D=17094">api here</a><br>
-                Found it <a href = "https://www.mbta.com/developers/v3-api">here</a> <br>
+                Source Website: <a href = "https://www.mbta.com/developers/v3-api">here</a> <br>
                 <b>I am using it here to get when is the first bus that leaves at around 3 pm inbound to Logan Airport Terminal at a particular stop (17094)</b>
                 <b>This API would be helpful if you want to go somewhere and want to make sure you don't miss the bus</b><br>
                 <b>It also can be used in a study to see how accurate mbta prediction is to actual real-time bus</b><br>
                 
             </p>
         </div>
-            <div id = "data"> 
-                Loading...</div>
+        
+        <div id = "data"> 
+            Loading...
+        </div>
+        
     </body>
 </html>
